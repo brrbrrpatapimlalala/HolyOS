@@ -2,6 +2,7 @@
 import time;
 import os;
 import pygame;
+import requests;
 pygame.display.set_caption("Holy Display 0.1");
 screen = pygame.display.set_mode([340,190]);
 os.chdir("holyfs");
@@ -28,6 +29,7 @@ while (True):
         print("  over-write <filename> - delete all from file or create new file");
         print("  rmf <filename> - remove file");
         print("  hofetch - information of holyos");
+        print("  requrl <url> - simple curl but only showing text");
     elif (cl[0] == "echo"):
         print(" ".join(cl[1:]));
     elif (cl[0] == "exit"):
@@ -68,6 +70,8 @@ while (True):
         print("--|--    | OS Display: Holy Display 0.1");
         print("  |      | Developer: Luxidev");
         print("  |      | Release Date: 2025-08-26");
-        print
+    elif (cl[0] == "requrl"):
+        resp = requests.get("".join(cl[1:]));
+        print(resp.text);
     else:
         print("Unknown command or file.");
