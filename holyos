@@ -1,0 +1,63 @@
+#!/usr/bin/python3
+import time;
+import os;
+os.chdir("holyfs");
+
+print("\033[2J\033[H", end="\r");
+print("Welcome to \033[33mHoly\033[0mOS");
+usr = input("Enter username: ");
+ps = input("Enter password: ");
+print(f"Welcome {usr}");
+while (True):
+    cl = input(f"{usr}#holyos> ").split();
+    if (not cl):
+        pass;
+    elif (cl[0] == "help"):
+        print("HolyOS Help Page 1/1:");
+        print("  help - commands help menu");
+        print("  echo <text> - output text on screen");
+        print("  exit - exit from holyos");
+        print("  calc - simple calculator for holyos");
+        print("  date - show date and time");
+        print("  sdir - show all directory's in holyfs");
+        print("  cat <filename> - output file");
+        print("  write <filename> - write text to file");
+        print("  over-write <filename> - delete all from file or create new file");
+        print("  rmf <filename> - remove file");
+    elif (cl[0] == "echo"):
+        print(" ".join(cl[1:]));
+    elif (cl[0] == "exit"):
+        exit();
+    elif (cl[0] == "calc"):
+        n1 = int(input("Enter first number: "));
+        n2 = int(input("Enter second number: "));
+        oper = input("Enter operation(+,-,*,/): ");
+        if oper == "+":
+            print(n1+n2);
+        elif oper == "-":
+            print(n1-n2);
+        elif oper == "*":
+            print(n1*n2);
+        elif oper == "/":
+            print(n1/n2);
+    elif (cl[0] == "date"):
+        print(time.ctime());
+    elif (cl[0] == "sdir"):
+        os.system("dir");
+    elif (cl[0] == "cat"):
+        f = open("".join(cl[1:]), "r");
+        print(f.read());
+    elif (cl[0] == "write"):
+        f = open("".join(cl[1:]), "a");
+        text = input("Enter text: ");
+        f.write(text);
+        print(f"Successfully writed text to {''.join(cl[1:])}");
+    elif (cl[0] == "over-write"):
+        f = open("".join(cl[1:]), "w");
+        f;
+        print(f"Successfully over-writed {''.join(cl[1:])}");
+    elif (cl[0] == "rmf"):
+        os.system(f"rm {''.join(cl[1:])}");
+        print(f"Successfully removed {''.join(cl[1:])}");
+    else:
+        print("Unknown command or file.");
