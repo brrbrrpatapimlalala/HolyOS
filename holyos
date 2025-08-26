@@ -14,6 +14,9 @@ usr = input("Enter username: ");
 ps = input("Enter password: ");
 print(f"Welcome {usr}");
 while (True):
+    for e in pygame.event.get():
+        if e.type == pygame.QUIT:
+            exit();
     cl = input(f"{usr}#holyos> ").split();
     if (not cl):
         pass;
@@ -34,6 +37,7 @@ while (True):
         print("  csc - output compiled source code .pyc");
         print("  hxtt <hex> - hex to text");
         print("  tthx <text> - text to hex");
+        print("  exec <file> - execute file");
     elif (cl[0] == "echo"):
         print(" ".join(cl[1:]));
     elif (cl[0] == "exit"):
@@ -88,5 +92,7 @@ while (True):
     elif (cl[0] == "tthx"):
         encode = " ".join(cl[1:]).encode().hex();
         print(encode);
+    elif (cl[0] == "exec"):
+        os.system(f"python3 {''.join(cl[1:])}");
     else:
         print("Unknown command or file.");
