@@ -3,6 +3,7 @@ import time;
 import os;
 import pygame;
 import requests;
+import py_compile;
 pygame.display.set_caption("Holy Display 0.1");
 screen = pygame.display.set_mode([340,190]);
 os.chdir("holyfs");
@@ -30,6 +31,9 @@ while (True):
         print("  rmf <filename> - remove file");
         print("  hofetch - information of holyos");
         print("  requrl <url> - simple curl but only showing text");
+        print("  csc - output compiled source code .pyc");
+        print("  hxtt <hex> - hex to text");
+        print("  tthx <text> - text to hex");
     elif (cl[0] == "echo"):
         print(" ".join(cl[1:]));
     elif (cl[0] == "exit"):
@@ -66,12 +70,23 @@ while (True):
         os.system(f"rm {''.join(cl[1:])}");
         print(f"Successfully removed {''.join(cl[1:])}");
     elif (cl[0] == "hofetch"):
-        print("  |      | OS Name: HolyOS 0.1");
+        print("  |      | OS Name: HolyOS 0.2");
         print("--|--    | OS Display: Holy Display 0.1");
         print("  |      | Developer: Luxidev");
         print("  |      | Release Date: 2025-08-26");
     elif (cl[0] == "requrl"):
         resp = requests.get("".join(cl[1:]));
         print(resp.text);
+    elif (cl[0] == "csc"):
+        file = py_compile.compile("../holyos");
+        with open(f"../__pycache__/{file}", "rb") as f:
+            cont = f.read();
+            print(cont);
+    elif (cl[0] == "hxtt"):
+        decode = bytes.fromhex(" ".join(cl[1:])).decode();
+        print(decode);
+    elif (cl[0] == "tthx"):
+        encode = " ".join(cl[1:]).encode().hex();
+        print(encode);
     else:
         print("Unknown command or file.");
